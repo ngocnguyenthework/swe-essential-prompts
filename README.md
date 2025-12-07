@@ -1,438 +1,395 @@
-# AI Prompt Library for Software Engineers
+# Cursor AI Configuration for Software Engineers
 
-A curated collection of high-quality prompt strategies for coding, debugging, architectural design, and software engineering workflows.
+A battle-tested collection of **Cursor IDE Rules and Commands** that supercharge your development workflow with AI assistance. These configurations provide structured, high-quality AI interactions for coding, debugging, architecture, and more.
 
-This repository contains battle-tested prompt patterns for using AI coding assistants (ChatGPT, Claude, GitHub Copilot Chat, etc.) effectively. These prompts help you:
+## 🎯 What's This?
 
-- Get higher-quality answers
-- Clarify requirements
-- Reduce hallucinations
-- Maintain consistent output
-- Generate production-ready code
-- Improve design, testing, CI/CD, documentation, and security
+This repository contains production-ready **Cursor IDE configurations** organized into two powerful components:
+
+1. **📋 Rules** (`.cursor/rules/`) - Automated AI workflows that guide the assistant through complex, multi-step processes
+2. **⚡ Commands** (`.cursor/commands/`) - Quick-access prompt templates for common development tasks
+
+These configurations help you:
+
+- ✅ Get consistent, high-quality AI responses
+- ✅ Automate complex workflows (PRDs, task generation, debugging)
+- ✅ Reduce hallucinations and vague answers
+- ✅ Generate production-ready code with tests
+- ✅ Save time with reusable prompt templates
 
 ---
 
 ## 📌 Table of Contents
 
-- [Overview](#overview)
-- [Core Prompt Strategies](#core-prompt-strategies)
-  - [Q&A Guided Discovery](#1-qa--guided-requirement-discovery)
-  - [Pros & Cons Trade-off](#2-pros--cons--design-trade-off-analysis)
-  - [Stepwise Execution](#3-stepwise-execution-with-keyword-next)
-  - [Role-Play Personas](#4-role-play--expert-persona)
-  - [Minimal Reproducible Example](#5-minimal-reproducible-example-mre)
-  - [Debugging](#6-debugging-checklist)
-  - [Code Review](#7-code-review)
-  - [Refactoring](#8-refactor-with-beforeafter)
-  - [Testing & CI](#9-testing--ci-generation)
-  - [API Design](#10-api-design)
-  - [Security](#11-security-checklist)
-  - [Performance Optimization](#12-performance-optimization)
-  - [Commit/PR Generation](#13-commit--pr-messaging)
-  - [Pair Programming](#14-pair-programming-mode)
-  - [Format/Style Control](#15-output-format-control)
-- [Common Scenarios & Copy-Paste Prompts](#common-scenarios--copy-paste-prompts)
+- [Quick Start](#-quick-start)
+- [How to Use](#-how-to-use)
+  - [Using Cursor Rules](#using-cursor-rules)
+  - [Using Cursor Commands](#using-cursor-commands)
+- [Available Configurations](#-available-configurations)
+  - [Cursor Rules](#cursor-rules-automated-workflows)
+  - [Cursor Commands](#cursor-commands-quick-prompts)
+- [Installation](#-installation)
+- [Prompt Strategy Reference](#-prompt-strategy-reference)
 
 ---
 
-## Overview
+## 🚀 Quick Start
 
-This repository provides AI prompt templates specifically tailored for software engineering tasks.
-
-The prompts follow these principles:
-
-- Clear role instructions
-- Explicit output format rules
-- Controlled verbosity
-- Step-by-step execution with checkpoints
-- Visibility of assumptions
-- Code with file structure and tests
-- Reproducibility and correctness
-
-> Use these prompts in any AI coding tool.
+1. **Clone or copy this repository** into your project
+2. The `.cursor/` folder will be automatically detected by Cursor IDE
+3. Access **Rules** via the Rules panel or by mentioning them in chat
+4. Access **Commands** via `Cmd+L` → Command palette or by typing the command name
 
 ---
 
-## Core Prompt Strategies
+## 💡 How to Use
 
-Below are the major prompt types with examples and use cases.
+### Using Cursor Rules
 
-### 1. Q&A — Guided Requirement Discovery
+**Rules** are multi-step AI workflows that guide the assistant through complex processes. They're perfect for:
 
-Use when the problem is unclear or you want the AI to ask clarifying questions first.
+- Creating Product Requirements Documents
+- Generating detailed task lists
+- Deep-dive debugging and issue analysis
 
-**Prompt Template:**
+**How to trigger:**
+
+1. Open Cursor's Rules panel (right sidebar)
+2. Select a rule (e.g., "Generating a Product Requirements Document")
+3. The AI will follow the structured workflow defined in the rule
+
+**Example:**
 
 ```
-Ask me up to 10 prioritized clarifying questions before producing any solution.
-For each question include:
-
-- Type (yes/no, multiple-choice, or short answer)
-- Why the question matters
-- Acceptable answers
-  Wait for my responses before generating code.
+@create-prd Build a user authentication system with email/password
 ```
 
-**Use Cases:**
+The AI will:
 
-- Designing new features
-- Setting up new services
-- Choosing frameworks, libraries, hosting strategies
+1. Ask 3-5 clarifying questions
+2. Wait for your responses
+3. Generate a complete PRD in `/tasks/[feature-name]/prd-[feature-name].md`
 
 ---
 
-### 2. Pros & Cons — Design Trade-off Analysis
+### Using Cursor Commands
 
-Use for architecture decisions.
+**Commands** are quick-access prompt templates for common tasks. They're perfect for:
 
-**Prompt Template:**
+- Quick code reviews
+- Generating tests
+- API design
+- Performance optimization
 
-```
-Compare the following options: [Option A], [Option B], [Option C].
+**How to use:**
 
-For each option include:
+1. Type `/` in the chat to see available commands
+2. Or simply type the command name (e.g., `qa-discovery`, `review-code`)
+3. Fill in the placeholders with your specific context
 
-1. Summary (1–2 lines)
-2. Pros
-3. Cons
-4. Complexity (Low/Medium/High)
-5. Risks & mitigations
-6. Best use-cases
-   Finally, give a recommendation with justification.
-```
-
-**Use Cases:**
-
-- REST vs GraphQL vs gRPC
-- Monolith vs Microservices
-- SQL vs NoSQL
-- React vs Vue vs Svelte
-
----
-
-### 3. Stepwise Execution with Keyword “next”
-
-Use to prevent the AI from jumping ahead.
-
-**Prompt Template:**
+**Example:**
 
 ```
-Break the solution into numbered steps.
-After each step, STOP and wait until I say “next” before continuing.
-For each step include:
-
-- Goal
-- Expected output
-- Commands or code that will be produced
+@qa-discovery
+Ask me up to 10 prioritized clarifying questions before producing any solution for:
+Building a real-time notification system
 ```
 
 ---
 
-### 4. Role Play — Expert Persona
+## 📚 Available Configurations
 
-Use to specify tone, reasoning style, and expected artifacts.
+### Cursor Rules (Automated Workflows)
 
-**Prompt Template:**
+Located in `.cursor/rules/` - These provide structured, multi-step guidance:
 
-```
-Act as a Senior Software Engineer with 10+ years experience in [technology].
+| Rule                 | Description                                       | Output                              |
+| -------------------- | ------------------------------------------------- | ----------------------------------- |
+| `create-prd.mdc`     | Generate detailed Product Requirements Documents  | `/tasks/[feature]/prd-[feature].md` |
+| `debug.mdc`          | Create comprehensive issue analysis and fix plans | `/tasks/issue-[bug].md`             |
+| `generate-tasks.mdc` | Break down features into actionable task lists    | `/tasks/tasks-[feature].md`         |
 
-When answering:
-- Provide a short rationale
-- Provide production-ready code
-- Include tests
-- Include a short README section
-- Provide a one-line commit message
-```
+**Key Features:**
 
----
-
-### 5. Minimal Reproducible Example (MRE)
-
-Use when debugging.
-
-**Prompt Template:**
-
-```
-Create a minimal, runnable example demonstrating this bug: [describe issue].
-Include:
-
-- File tree
-- Source files
-- Commands to run
-- Sample input & expected output
-```
+- ✅ Always asks clarifying questions first
+- ✅ Uses multiple-choice format for easy responses (e.g., "1A, 2C")
+- ✅ Automatically saves output to organized locations
+- ✅ Designed for junior-friendly documentation
 
 ---
 
-### 6. Debugging Checklist
+### Cursor Commands (Quick Prompts)
 
-**Prompt Template:**
+Located in `.cursor/commands/` - Quick-access templates for common tasks:
 
-```
-Given the issue: [short summary]
-Provide a prioritized debugging checklist with:
+#### 🔍 Discovery & Planning
 
-- Commands to run
-- What to inspect
-- Signs of each root cause
-- Fix + verification steps
-```
+- `qa-discovery` - Ask prioritized clarifying questions before solving
+- `pros-cons` - Compare architecture/design options with trade-offs
+- `stepwise` - Break solutions into numbered steps with checkpoints
 
----
+#### 🐛 Debugging & Quality
 
-### 7. Code Review
+- `debug-checklist` - Generate prioritized debugging checklists
+- `mre-bug` - Create minimal reproducible examples
+- `review-code` - Comprehensive code review with diffs
 
-**Prompt Template:**
+#### 🏗️ Design & Architecture
 
-```
-Perform a code review. Provide:
-1. Summary of the code
-2. High-priority issues (bugs/security)
-3. Medium/low-priority improvements
-4. Suggested changes (unified diff)
-5. Tests to add
-```
+- `api-design` - Design REST APIs with examples and specs
+- `role-expert` - Invoke senior engineer persona for guidance
+- `security-check` - Security audit with threat analysis
 
----
+#### 🔧 Implementation
 
-### 8. Refactor with Before/After
+- `refactor-before-after` - Refactoring guide with comparisons
+- `test-ci-gen` - Generate tests and CI/CD workflows
+- `perf-optimize` - Performance tuning plans with benchmarks
 
-**Prompt Template:**
+#### 📝 Documentation & Workflow
 
-```
-Refactor the code below. Provide:
-
-- BEFORE summary
-- AFTER version (full)
-- List of changes
-- Complexity/comparison
-- When NOT to refactor it this way
-```
+- `auto-commit` - Generate commit messages and PR descriptions
+- `prompt-refine` - Improve your prompts for better results
+- `context7` - Auto-leverage Context7 for version-specific docs
 
 ---
 
-### 9. Testing & CI Generation
+## 💻 Installation
 
-**Prompt Template:**
+### Option 1: Use in Your Project (Recommended)
 
+```bash
+# Clone this repo
+git clone https://github.com/yourusername/swe-essential-prompts.git
+
+# Copy the .cursor folder to your project
+cp -r swe-essential-prompts/.cursor /path/to/your/project/
+
+# Cursor will automatically detect the configuration
 ```
-Generate tests for this code using [test framework].
-Include:
 
-- Unit tests
-- Edge case matrix
-- Integration tests (if relevant)
-- GitHub Actions / GitLab CI workflow to run tests
+### Option 2: Global Configuration
+
+```bash
+# Copy to your global Cursor config (applies to all projects)
+cp -r .cursor ~/.cursor/global/
+
+# Note: Check Cursor documentation for current global config path
 ```
+
+### Option 3: Fork & Customize
+
+1. Fork this repository
+2. Customize rules and commands for your team's workflow
+3. Share via Git for team-wide consistency
 
 ---
 
-### 10. API Design
+## 🎓 Prompt Strategy Reference
 
-**Prompt Template:**
+The configurations in this repo follow proven prompt engineering principles:
+
+### Core Principles
+
+All prompts and rules follow these battle-tested principles:
+
+1. **🎯 Clear Role Instructions** - Specify expertise level and perspective
+2. **📋 Explicit Output Format** - Define exactly what you want to receive
+3. **🔄 Step-by-Step with Checkpoints** - Prevent AI from jumping ahead
+4. **🔍 Visibility of Assumptions** - AI must state what it's assuming
+5. **✅ Verification Built-In** - Tests, validation, and next steps included
+6. **📁 File Structure Awareness** - Code includes context and organization
+7. **🎓 Junior-Friendly** - Documentation accessible to all skill levels
+
+### Key Patterns Used
+
+#### 1. **Q&A Discovery** (`qa-discovery`)
+
+Ask prioritized clarifying questions before solving. Reduces hallucinations.
+
+#### 2. **Trade-off Analysis** (`pros-cons`)
+
+Compare options with pros/cons, complexity, and recommendations.
+
+#### 3. **Stepwise Execution** (`stepwise`)
+
+Break into numbered steps, stop after each, wait for "next" command.
+
+#### 4. **Expert Persona** (`role-expert`)
+
+Invoke specific expertise level and reasoning style.
+
+#### 5. **Minimal Reproducible Examples** (`mre-bug`)
+
+Create runnable examples with file structure and commands.
+
+---
+
+## 🎯 Common Use Cases
+
+### 🚀 Starting New Features
 
 ```
-Design REST API endpoints for: [feature].
+@create-prd Build a real-time notification system
+```
 
-For each endpoint include:
+→ Generates complete PRD with clarifying questions
 
-- Method + URL
-- Request example (JSON)
-- Response example (JSON)
-- Status codes
-- Auth
-- Error objects
+### 🐛 Debugging Issues
+
+```
+@debug Analyze: Users can't log in after password reset
+```
+
+→ Creates structured issue analysis with root cause and fix plan
+
+### 📋 Breaking Down Work
+
+```
+@generate-tasks Implement user profile editing feature
+```
+
+→ Generates hierarchical task list with sub-tasks and relevant files
+
+### 🔍 Code Review
+
+```
+@review-code
+```
+
+→ Reviews current file with bugs, improvements, and suggested changes
+
+### 🏗️ Architecture Decisions
+
+```
+@pros-cons
+Compare: PostgreSQL, MongoDB, DynamoDB for user data storage
+```
+
+→ Detailed trade-off analysis with recommendation
+
+### ⚡ Performance Tuning
+
+```
+@perf-optimize Optimize the dashboard rendering performance
+```
+
+→ Profiling plan, benchmarks, and optimization suggestions
+
+---
+
+## 🔧 Customization
+
+### Adding Your Own Commands
+
+1. Create a new `.md` file in `.cursor/commands/`
+2. Use this template:
+
+```markdown
+# your-command-name
+
+Brief description of what this command does.
+
+[Placeholder for context - e.g., your code, feature description]
+
 Provide:
-- cURL examples
-- OpenAPI spec (if requested)
+
+- Expected output 1
+- Expected output 2
+- Expected output 3
+
+Optional additional instructions...
+```
+
+3. Use it in Cursor: `@your-command-name`
+
+### Adding Your Own Rules
+
+1. Create a new `.mdc` file in `.cursor/rules/`
+2. Start with front matter:
+
+```markdown
+---
+alwaysApply: false
+---
+
+# Rule: Your Rule Name
+
+## Goal
+
+Clear description of what this rule accomplishes
+
+## Process
+
+1. Step 1
+2. Step 2
+   ...
+```
+
+3. Access via Cursor's Rules panel
+
+---
+
+## 💪 Best Practices
+
+### 1. **Be Specific with Context**
+
+❌ `@review-code`
+✅ `@review-code Focus on security vulnerabilities and error handling`
+
+### 2. **Chain Commands**
+
+```
+@qa-discovery Design a payment processing system
+[Answer questions]
+@create-prd [based on answers]
+@generate-tasks [based on PRD]
+```
+
+### 3. **Use Stepwise for Complex Tasks**
+
+```
+@stepwise Migrate authentication from custom JWT to Auth0
+[Say "next" after each step]
+```
+
+### 4. **Combine with Context7**
+
+The `context7` command automatically checks your dependencies for version-specific docs:
+
+```
+@context7 Show me how to implement file uploads with Next.js
 ```
 
 ---
 
-### 11. Security Checklist
+## 📚 Additional Resources
 
-**Prompt Template:**
-
-```
-Perform a security review for this system: [description].
-List threats with:
-
-- Severity
-- Exploit path
-- Short-term mitigation
-- Long-term recommendations
-```
+- [Cursor IDE Documentation](https://cursor.sh/docs)
+- [Prompt Engineering Guide](https://www.promptingguide.ai/)
+- [Context7 Documentation](https://context7.com/)
 
 ---
 
-### 12. Performance Optimization
+## 🤝 Contributing
 
-**Prompt Template:**
+Found a useful prompt pattern? Contributions welcome!
 
-```
-Provide a performance tuning plan for: [component].
-
-Include:
-
-- Metrics to measure
-- Benchmarks to run
-- Profiling tools/commands
-- Expected bottlenecks
-- 3 optimizations with estimated impact
-```
+1. Fork this repository
+2. Add your rule/command
+3. Test it thoroughly
+4. Submit a PR with examples
 
 ---
 
-### 13. Commit & PR Messaging
+## 📄 License
 
-**Prompt Template:**
-
-```
-Based on this diff:
-[Paste diff]
-
-Return:
-
-- One-line commit message
-- Commit body (why + impact)
-- PR description with checklist
-- Changelog entry
-```
+MIT License - feel free to use and modify for your team
 
 ---
 
-### 14. Pair Programming Mode
+## 🙏 Acknowledgments
 
-**Prompt Template:**
+Built with ❤️ by software engineers who believe AI should be a force multiplier, not a source of frustration.
 
-```
-Act as my pair programmer.
-When I say "implement X":
-- Output ONLY code blocks
-- Include file paths
-When I say "explain":
-- Provide a short explanation
-```
-
----
-
-## Common Scenarios & Copy-Paste Prompts
-
-Below are ready-made prompts for real-world situations.
-
----
-
-### 🚀 Scenario 1: Create a new project from scratch
-
-```
-Help me scaffold a new project using [tech stack].
-Ask me 6–8 clarifying questions first.
-Then provide:
-- File structure
-- Setup commands
-- Base code
-- Tests
-- README
-```
-
----
-
-### 🧪 Scenario 2: Convert code into production-ready version
-
-```
-Take the code below and convert it into a production-ready version, including:
-- Input validation
-- Error handling
-- Logging
-- Separation of concerns
-- Tests
-- Documentation
-```
-
----
-
-### 🐞 Scenario 3: Debugging a crash / error message
-
-```
-Here is the error: [paste].
-Create a root-cause analysis with:
-- What the error likely means
-- How to reproduce
-- Step-by-step debugging Checklist
-- Fix + verification
-```
-
----
-
-### 📦 Scenario 4: Migrate from X to Y
-
-```
-Generate a migration plan from [framework X] to [framework Y] including:
-- File changes
-- API differences
-- Risks
-- Timeline
-- After-migration cleanup
-```
-
----
-
-### 📐 Scenario 5: Architectural decision
-
-```
-Act as a senior architect.
-Compare these architecture patterns: [list].
-Provide pros/cons, risks, complexity, and best recommendation.
-```
-
----
-
-### 🔒 Scenario 6: Security hardening
-
-```
-Perform a security audit for my service: [description].
-List vulnerabilities, risks, and patch instructions.
-```
-
----
-
-### 🌐 Scenario 7: Generate API documentation
-
-```
-Generate full API documentation for the following endpoints.
-Include:
-- Parameters
-- Schemas
-- Error formats
-- Examples
-- OpenAPI 3.1 YAML
-```
-
----
-
-### 🧹 Scenario 8: Clean up messy code
-
-```
-Refactor this messy code into clean, readable, testable functions.
-Maintain the same behavior.
-Show Before → After.
-```
-
----
-
-### 📊 Scenario 9: Add logging, monitoring, metrics
-
-```
-Add structured logging, metrics, and recommended observability patterns to this code.
-Include which libraries and dashboards to use.
-```
-
----
-
-### 🤝 Scenario 10: Guide a junior developer
-
-```
-Explain this concept to a junior developer using simple language, examples, diagrams, and analogies.
-```
+**Happy Coding!** 🚀
